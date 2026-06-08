@@ -1,0 +1,115 @@
+# App Store — a PopClip extension
+#
+# Select any text, then click the App Store button in the PopClip bar to look
+# it up on the App Store. The storefront (market) and the platform are both
+# configurable in PopClip's extension settings.
+#
+# Basic case (defaults):
+#   https://apps.apple.com/us/iphone/search?term=<selection>
+#
+# This is a pure URL action — it contains no executable code, so PopClip
+# installs it without a security warning and no signing is required.
+
+name: App Store
+identifier: pl.bauke.popclip.app-store
+description: Search the App Store for the selected text, in a configurable market and platform.
+
+# Icon: the SF Symbol "storefront.fill" — a generic shop glyph, drawn monochrome
+# by PopClip.
+#
+# Copyright note: the real App Store logo is an Apple trademark with strict
+# brand rules, so it's deliberately NOT used here. SF Symbols are fine for an
+# in-app button glyph like this — Apple only forbids using them as app
+# icons/logos — and a plain storefront is nobody's trademark.
+#
+# "storefront.fill" needs macOS 14+ (SF Symbols 5). For older macOS, swap in the
+# always-available "symbol:bag.fill"; to add a magnifier, use
+# "search symbol:storefront.fill".
+icon: symbol:storefront.fill
+
+# Collapse newlines/tabs in the selection into single spaces before searching,
+# so multi-line selections still make a sensible query.
+clean query: true
+
+# `***` is replaced by the trimmed, URL-encoded selection.
+# `{popclip option ...}` is replaced by the user's chosen option value.
+url: https://apps.apple.com/{popclip option market}/{popclip option platform}/search?term=***
+
+options:
+  - identifier: market
+    type: multiple
+    label: Market
+    description: Which country's App Store storefront to search.
+    default value: us
+    values:
+      - us
+      - gb
+      - ca
+      - au
+      - ie
+      - de
+      - fr
+      - es
+      - it
+      - nl
+      - se
+      - "no"
+      - dk
+      - fi
+      - pl
+      - cz
+      - ch
+      - at
+      - br
+      - mx
+      - jp
+      - kr
+      - cn
+      - hk
+      - tw
+      - sg
+      - in
+      - ae
+    value labels:
+      - United States
+      - United Kingdom
+      - Canada
+      - Australia
+      - Ireland
+      - Germany
+      - France
+      - Spain
+      - Italy
+      - Netherlands
+      - Sweden
+      - Norway
+      - Denmark
+      - Finland
+      - Poland
+      - Czechia
+      - Switzerland
+      - Austria
+      - Brazil
+      - Mexico
+      - Japan
+      - South Korea
+      - China mainland
+      - Hong Kong
+      - Taiwan
+      - Singapore
+      - India
+      - United Arab Emirates
+
+  - identifier: platform
+    type: multiple
+    label: Platform
+    description: Which App Store platform to search.
+    default value: iphone
+    values:
+      - iphone
+      - ipad
+      - mac
+    value labels:
+      - iPhone
+      - iPad
+      - Mac
